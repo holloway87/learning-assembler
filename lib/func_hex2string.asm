@@ -29,6 +29,18 @@ func_hex2string_next:
 func_hex2string_done:
     mov bx, msg_hex
     call func_print
+    ; reset the hex string
+    mov cx, 48
+    mov bx, msg_hex
+    add bx, 2
+    mov [bx], cl
+    add bx, 1
+    mov [bx], cl
+    add bx, 1
+    mov [bx], cl
+    add bx, 1
+    mov [bx], cl
+    add bx, 1
     popa
     ret
 
