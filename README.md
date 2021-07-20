@@ -12,5 +12,5 @@ $ nasm boot.asm -f bin -o boot.bin
 Then execute it with qemu:
 
 ```shell
-$ qemu-system-i386 -drive file=boot.bin,format=raw,index=0,media=disk
+$ qemu-system-i386 -drive file=boot.bin,format=raw,index=0,if=floppy
 ```
