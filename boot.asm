@@ -5,36 +5,29 @@
 mov bx, msg_welcome
 call func_print
 
-mov dx, msg_welcome
-call func_hex2string
-
-mov bp, 0x8000
-mov sp, bp
-
-mov dl, 0; drive
-mov cl, 2; start sector (1 indexed)
-mov dh, 1; number of sectors
-mov bx, 0x9000
-call func_read_floppy
-
-mov bx, 0x9000
-call func_print
+call switch_to_pm
 
 jmp $
 
 %include "lib/func_print.asm"
 %include "lib/func_hex2string.asm"
 %include "lib/func_read_floppy.asm"
+%include "lib/func_pm_print_string.asm"
+%include "lib/gdt_table.asm"
+%include "lib/switch_to_pm.asm"
+
+[bits 32]
+begin_pm:
+    mov ebx, msg_protected_mode
+    call func_pm_print_string
+    jmp $
 
 ; Data
 msg_welcome:
-    db "Oh hi there :)",10,13,0
+    db "Switching to protected mode...",10,13,0
+msg_protected_mode:
+    db "Entered 32-bit protected mode.",0
 
 ; write bootloader signature at the end of the 512 bytes
 times 510-($-$$) db 0
 dw 0xaa55
-
-msg_new:
-    db "This is new",10,13,0
-
-times 1024-($-$$) db 0
