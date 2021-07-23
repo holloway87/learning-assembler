@@ -1,16 +1,18 @@
-Learning Assembler
-==================
+Learning Assembler and OS development
+=====================================
 
-This repository contains the products of me learning assembler.
+This repository contains the products of me learning assembler and os
+development.
 
-The file `boot.asm` uses the NASM compiler, to use the code compile it:
+To compile the code to an image file use:
 
 ```shell
-$ nasm boot.asm -f bin -o boot.bin
+$ make
 ```
 
-Then execute it with qemu:
+To execute the image file with qemu use (it will also compile the code if
+needed):
 
 ```shell
-$ qemu-system-i386 -drive file=boot.bin,format=raw,index=0,if=floppy
+$ make run
 ```
